@@ -24,6 +24,8 @@ def cleanup_text(text):
     text = sub('  ', '. ', text)
     text = sub('‐', '', text)
     text = sub('\.+', '.', text)
+    # Removes quotation marks
+    text = sub('"', '', text)
     # Removes music symbol
     text = sub('♪(\s*\w.*)♪', '', text)
 
@@ -54,6 +56,19 @@ def save_text(origin_file, cleaned):
         write_data = f.write(cleaned)
     print(f"Content saved to {split_path}/{filename}.txt")
 
+def merge_episodes():
+    '''Merges cleaned episode files into one season file'''
+
+    for directory, subdirectories, files in os.walk("corpus_data/cleaned"):
+        for file in files:
+            path = os.path.join(directory, file)
+            split_path = os.path.split(directory)[1]
+
+            text = load_text(path)
+            with open(f"corpus_data/cleaned/{split_path}/{split_path}_complete.txt", 'a') as f:
+                write_data = f.write(text)
+            print(f"Content saved to {split_path}/{split_path}_complete.txt")
+
 if __name__ == "__main__":
     sample = "corpus_data/srt/s1/Letterkenny.S01E01.Aint.No.Reason.to.Get.Excited.1080p.HULU.WEB-DL.AAC2.0.H.264-monkee.srt"
 
@@ -64,12 +79,16 @@ if __name__ == "__main__":
     # save_text(sample, add)
     # print(add)
 
-    for directory, subdirectories, files in os.walk("corpus_data/srt"):
-        for file in files:
-            path = os.path.join(directory, file)
-            text = load_text(path)
-            cleaned = cleanup_text(text)
-            add = add_ss_tokens(cleaned)
-            # print(cleaned)
-            save_text(path, add)
+    # for directory, subdirectories, files in os.walk("corpus_data/srt"):
+    #     for file in files:
+    #         path = os.path.join(directory, file)
+    #         text = load_text(path)
+    #         cleaned = cleanup_text(text)
+    #         add = add_ss_tokens(cleaned)
+    #         # print(cleaned)
+    #         save_text(path, add)
+    
+    merge_episodes()
+
+
 

@@ -63,7 +63,7 @@ def random_walk(markov, sentence_length):
     i = 1
     while i != sentence_length:
         next_word = stochastic_sample(markov, word) 
-        if next_word == '<STOP>':
+        if next_word == '<STOP>' or next_word == '<START>':
             next_word = stochastic_sample(markov, '<START>')
         sentence.append(next_word)
 
@@ -72,6 +72,8 @@ def random_walk(markov, sentence_length):
     
     while i == sentence_length:
         next_word = stochastic_sample(markov, word)
+        if next_word == '<START>':
+            next_word = stochastic_sample(markov, '<START>')
         if next_word == '<STOP>':
             break
         sentence.append(next_word)
@@ -80,10 +82,12 @@ def random_walk(markov, sentence_length):
     return " ".join(sentence)
 
 if __name__ == "__main__":
-    file = "corpus_data/cleaned/s1/Letterkenny.S01E01.Aint.No.Reason.to.Get.Excited.txt"
+    file = "corpus_data/cleaned/s1/s1_complete.txt"
     corpus = load_text(file)
     # markov = MarkovChain(corpus, 2)
     markov = markov_histo(corpus)
-    walk = random_walk(markov, 10)
-    print(walk)
+    for i in range(10):
+        walk = random_walk(markov, 10)
+        print(walk)
+        i +=1
     # print(markov)
