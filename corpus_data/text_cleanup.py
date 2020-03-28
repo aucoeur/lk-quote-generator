@@ -1,6 +1,6 @@
 import sys
 import os
-from re import split, sub
+from re import compile, split, sub
 
 def load_text(filename):
     '''Reads file data'''
@@ -20,12 +20,21 @@ def cleanup_text(text):
     text = sub('<.*?>','', text)
     # Removes remaining linebreaks
     text = sub('\n+', ' ', text)
-    # Fix double spaces and long dashes
+    # Fix double spaces, long dashes and trailing periods
     text = sub('  ', '. ', text)
     text = sub('‐', '', text)
+    text = sub('\.+', '.', text)
     # Removes music symbol
     text = sub('♪(\s*\w.*)♪', '', text)
 
+    return text
+
+def add_start_tokens(text):
+    '''Adds start token to beginning of sentences'''
+    # Add <START> to initial sentence
+    text = sub(text[1], f'<START> {text[1]}', text)
+    # Add <START> to remaining sentences
+    text = sub(r'([\.\?\!]\s)(([A-Z])\w*)', r'\1<START> \2', text)
     return text
 
 def save_text(origin_file, cleaned):
@@ -45,19 +54,22 @@ def save_text(origin_file, cleaned):
         write_data = f.write(cleaned)
     print(f"Content saved to {split_path}/{filename}.txt")
 
-def structure_sentence(text):
-    cap = " ".join(text).capitalize()
-    sentence = f"{cap}."
-    return sentence
-
 if __name__ == "__main__":
-    # sample = "corpus_data/srt/s1/Letterkenny.S01E01.Aint.No.Reason.to.Get.Excited.1080p.HULU.WEB-DL.AAC2.0.H.264-monkee.srt"
+    sample = "corpus_data/srt/s1/Letterkenny.S01E01.Aint.No.Reason.to.Get.Excited.1080p.HULU.WEB-DL.AAC2.0.H.264-monkee.srt"
+
+    # text = load_text(sample)
+    # cleaned = cleanup_text(text)
+    # add = add_start_tokens(cleaned)
+    # # print(cleaned)
+    # save_text(sample, add)
+    # print(add)
 
     for directory, subdirectories, files in os.walk("corpus_data/srt"):
         for file in files:
             path = os.path.join(directory, file)
             text = load_text(path)
             cleaned = cleanup_text(text)
+            add = add_start_tokens(cleaned)
             # print(cleaned)
-            save_text(path, cleaned)
+            save_text(path, add)
 
