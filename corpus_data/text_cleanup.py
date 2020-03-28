@@ -4,7 +4,7 @@ from re import compile, split, sub
 
 def load_text(filename):
     '''Reads file data'''
-    with open(filename, 'r') as f:
+    with open(filename, 'r', encoding='utf-8-sig') as f:
         read_data = f.read()
     return read_data
 
@@ -29,12 +29,12 @@ def cleanup_text(text):
 
     return text
 
-def add_start_tokens(text):
+def add_ss_tokens(text):
     '''Adds start token to beginning of sentences'''
     # Add <START> to initial sentence
-    text = sub(text[1], f'<START> {text[1]}', text)
-    # Add <START> to remaining sentences
-    text = sub(r'([\.\?\!]\s)(([A-Z])\w*)', r'\1<START> \2', text)
+    text = sub(text[0], f'<START> {text[0]}', text)
+    # Add <START>/<STOP> to remaining sentences
+    text = sub(r'([\.\?\!])(\s)(([A-Z])\w*)', r'\1 <STOP>\2<START> \3', text)
     return text
 
 def save_text(origin_file, cleaned):
@@ -69,7 +69,7 @@ if __name__ == "__main__":
             path = os.path.join(directory, file)
             text = load_text(path)
             cleaned = cleanup_text(text)
-            add = add_start_tokens(cleaned)
+            add = add_ss_tokens(cleaned)
             # print(cleaned)
             save_text(path, add)
 
