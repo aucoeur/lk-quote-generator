@@ -1,14 +1,21 @@
 from random import choice
-from dictogram import Dictogram
-from queue import Queue
 from re import match, search
-from utils import load_text
 
-class MarkovChain(dict):
+try:
+    from src.dictogram import Dictogram
+    from src.squeue import Queue
+    from src.utils import load_text
+except ModuleNotFoundError:
+    from dictogram import Dictogram
+    from squeue import Queue
+    from utils import load_text
+
+class NarkovChain(dict):
     def __init__(self, corpus=None, order=2):
-        super(MarkovChain, self).__init__()
+        super(NarkovChain, self).__init__()
         self.order = order
         self.queue = Queue(order)
+        self.sentence = []
 
         if corpus is not None:
             self['START'] = Dictogram()
@@ -21,7 +28,6 @@ class MarkovChain(dict):
             # Prepopulate queue
             if i < self.order:
                 self.queue.enqueue(word)
-                # print(f"Init Queue: {self.queue}")
             else:
                 # Queue becomes state key in markov dict
                 state = tuple(self.queue)
@@ -29,7 +35,6 @@ class MarkovChain(dict):
                 # Advance the queue
                 self.queue.dequeue()
                 self.queue.enqueue(word)
-                # print(f"Queue: {state}")
 
                 if match(r'(([A-Z])\w*)', state[0]) is not None:
                     self['START'].add_count(state)
@@ -37,62 +42,60 @@ class MarkovChain(dict):
                 if state not in self.keys():
                     self[state] = Dictogram()
 
-                # if state exists, add word to dictogram
+                # If state exists, add word to dictogram
                 self.get(state).add_count(word)
 
         return self
 
-    def generate_sentence(self, length):
-        '''Make a sentence by sampling'''
-        sentence = []
+    def init_queue(self):
+        '''Helper function to reset/re-init queue'''
         self.queue.reset()
 
         state = self['START'].sample()
-        # print(f"Start State: {state}")
 
+        # Prepopulate queue and sentence
         for each in state:
             self.queue.enqueue(each)
-            sentence.append(each)
+            self.sentence.append(each)
+            
+        return tuple(self.queue)
+
+    def generate_sentence(self, length):
+        '''Make a sentence by sampling'''
+
+        state = self.init_queue()
 
         i = self.order
-        while i < length:
+
+        while True:
             next_state = self[state].sample()
 
             self.queue.dequeue()                
             self.queue.enqueue(next_state)
 
-            sentence.append(next_state) 
-               
+            self.sentence.append(next_state) 
+            
             if search('[\.\?\!]', next_state) is not None:
-                state = self['START'].sample()
+                if i < length:
+                    self.init_queue()
+                    i += 1
+                else:
+                    sentence = self.sentence
+                    self.sentence = []
+                    break
 
             i += 1
             state = tuple(self.queue)
-            # print(f"STATE: {state}")
-        
-        while i == length:
-            next_state = self[state].sample()
-            
-            self.queue.dequeue()                
-            self.queue.enqueue(next_state)
-
-            sentence.append(next_state)    
-
-            if search('[\.\?\!]', next_state) is not None:
-                break
-
-            state = tuple(self.queue)
-            # print(f"STATE: {state}")
                
         return ' '.join(sentence)
 
 if __name__ == "__main__":
-    # corpus = "The quick brown fox jumped over the lazy dogs.  It's the cat. The early bird gets the worm but the second mouse gets the cheese. The cat is the one. The quick green mouse gets the lazy dogs.".split()
+    # corpus = "The quick brown fox jumped over the lazy dogs.  It's the cat. The early bird gets the worm. But the second mouse gets the cheese. The cat is the one. The quick green mouse gets the lazy dogs. It's the dog.  The quick dumb duck jumped over the piece of bread.  I like bread.  I like cats.  The brown duck gets the bread.".split()
     file = "corpus_data/cleaned/complete.txt"
     corpus = load_text(file)
-    markov = MarkovChain(corpus, 2)
+    markov = NarkovChain(corpus, 2)
 
     for i in range(10):
-        print(markov.generate_sentence(12))
+        print(markov.generate_sentence(10))
 
 

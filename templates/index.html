@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="d-flex flex-column justify-content-center">
+        <h1 class="align-self-center">SENTENCE DEGENERATOR</h1>
+        <video autoplay loop muted playsinline src="{{gif_link}}"></video>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <div class="p-3">
+                    <h3>{{ sentence }}</h3>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="mx-auto pt-3">
+            <a class="btn btn-warning btn-lg" href="/" role="button">another upcountry degen</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

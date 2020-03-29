@@ -1,6 +1,6 @@
 from random import randint, randrange, choice
 from dictogram import Dictogram
-from queue import Queue
+from squeue import Queue
 from utils import load_text
 
 def markov_histo(corpus):
