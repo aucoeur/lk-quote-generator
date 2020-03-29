@@ -60,40 +60,28 @@ def save_text(origin_file, cleaned):
 def merge_episodes():
     '''Merges cleaned episode files into one season file'''
 
-    for directory, subdirectories, files in os.walk("corpus_data/cleaned"):
+    for directory, subdirectories, files in os.walk("corpus_data/cleaned/"):
         for file in files:
             path = os.path.join(directory, file)
             split_path = os.path.split(directory)[1]
 
             text = load_text(path)
             # print(path)
+            # print(split_path)
             with open(f"corpus_data/cleaned/{split_path}/{split_path}_complete.txt", 'a') as f:
                 write_data = f.write(text)
             print(f"Content saved to {split_path}/{split_path}_complete.txt")
 
-def merge_seasons():
-    '''Merges cleaned episode files into one season file'''
-
-    for directory, subdirectories, files in os.walk("corpus_data/cleaned"):
-        for file in files:
-            path = os.path.join(directory, file)
-            split_path = os.path.split(directory)[1]
-
-            text = load_text(path)
-            with open(f"corpus_data/cleaned/complete.txt", 'a') as f:
-                write_data = f.write(text)
-            print(f"Content saved to complete.txt")
-
 if __name__ == "__main__":
     # sample = "corpus_data/srt/s1/Letterkenny.S01E01.Aint.No.Reason.to.Get.Excited.1080p.HULU.WEB-DL.AAC2.0.H.264-monkee.srt"
 
-    sample = "corpus_data/cleaned/complete.txt"
+    # sample = "corpus_data/cleaned/complete.txt"
 
-    text = load_text(sample)
-    cleaned = cleanup_text(text)
-    add = add_ss_tokens(cleaned)
-    # print(cleaned)
-    save_text(sample, add)
+    # text = load_text(sample)
+    # cleaned = cleanup_text(text)
+    # add = add_ss_tokens(cleaned)
+    # # print(cleaned)
+    # save_text(sample, add)
     # print(add)
 
     # for directory, subdirectories, files in os.walk("corpus_data/srt"):
@@ -105,7 +93,6 @@ if __name__ == "__main__":
     #         # print(cleaned)
     #         save_text(path, cleaned)
     
-    # merge_episodes()
-    # merge_seasons()
+    merge_episodes()
 
 

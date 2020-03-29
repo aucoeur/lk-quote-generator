@@ -56,11 +56,10 @@ def random_walk(markov, sentence_length):
     return " ".join(sentence)
 
 if __name__ == "__main__":
-    file = "corpus_data/cleaned/complete.txt"
+    file = "corpus_data/cleaned/SS_TOKEN_complete.txt"
     corpus = load_text(file)
     markov = markov_histo(corpus)
     
     for i in range(10):
         walk = random_walk(markov, 10)
         print(walk)
-        i +=1

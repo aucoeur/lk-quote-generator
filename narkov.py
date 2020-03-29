@@ -31,7 +31,7 @@ class MarkovChain(dict):
                 self.queue.enqueue(word)
                 # print(f"Queue: {state}")
 
-                if match('[A-Z]', state[0]) is not None:
+                if match(r'(([A-Z])\w*)', state[0]) is not None:
                     self['START'].add_count(state)
                 
                 if state not in self.keys():
@@ -42,39 +42,57 @@ class MarkovChain(dict):
 
         return self
 
-    # def generate_sentence(self, length):
-    #     '''Make a sentence by sampling'''
-    #     sentence = []
-    #     self.queue.reset()
+    def generate_sentence(self, length):
+        '''Make a sentence by sampling'''
+        sentence = []
+        self.queue.reset()
 
-    #     state = self['START'].sample()[0]
-    #     print(f"Start State: {state}")
-    #     self.queue.enqueue(state)
-    #     sentence.append(state)
+        state = self['START'].sample()
+        # print(f"Start State: {state}")
 
-    #     i = 1
-    #     while i != length:
-    #         next_state = self[state].sample()[0]
-    #         print(f"Next State: {next_state}")
-    #         if i >= self.order:
-    #             self.queue.dequeue()                
-    #             self.queue.enqueue(next_state)
-    #         sentence_list.append(next_state) 
+        for each in state:
+            self.queue.enqueue(each)
+            sentence.append(each)
 
-    #         if search('[\.\?\!]', next_state) is not None:
-    #             state = self['START'].sample()[0]
+        i = self.order
+        while i < length:
+            next_state = self[state].sample()
 
-    #         state = next_state
-    #         i += 1
+            self.queue.dequeue()                
+            self.queue.enqueue(next_state)
 
-    #     return ' '.join(sentences)
+            sentence.append(next_state) 
+               
+            if search('[\.\?\!]', next_state) is not None:
+                state = self['START'].sample()
+
+            i += 1
+            state = tuple(self.queue)
+            # print(f"STATE: {state}")
+        
+        while i == length:
+            next_state = self[state].sample()
+            
+            self.queue.dequeue()                
+            self.queue.enqueue(next_state)
+
+            sentence.append(next_state)    
+
+            if search('[\.\?\!]', next_state) is not None:
+                break
+
+            state = tuple(self.queue)
+            # print(f"STATE: {state}")
+               
+        return ' '.join(sentence)
 
 if __name__ == "__main__":
-    corpus = "one fish two fish two dog red fish blue fish".split()
-    # file = "corpus_data/cleaned/s1/Letterkenny.S01E01.Aint.No.Reason.to.Get.Excited.txt"
-    # corpus = load_text(file)
-    markov = MarkovChain(corpus, 3)
-    print(markov)
-    print(markov.generate_sentence(5))
+    # corpus = "The quick brown fox jumped over the lazy dogs.  It's the cat. The early bird gets the worm but the second mouse gets the cheese. The cat is the one. The quick green mouse gets the lazy dogs.".split()
+    file = "corpus_data/cleaned/complete.txt"
+    corpus = load_text(file)
+    markov = MarkovChain(corpus, 2)
+
+    for i in range(10):
+        print(markov.generate_sentence(12))
 
 
