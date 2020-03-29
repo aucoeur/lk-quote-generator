@@ -42,8 +42,9 @@ def add_ss_tokens(text):
 def save_text(origin_file, cleaned):
     '''Saves cleaned content to txt file.  If directory doesn't exist, creates it'''
     base = os.path.basename(origin_file)
-    filename = os.path.splitext(base)[0].split(".1080p")[0]
+    # filename = os.path.splitext(base)[0].split(".1080p")[0]
     # print(filename)
+    filename = "SS_TOKEN_complete"
     path = os.path.dirname(origin_file)
     split_path = os.path.split(path)[1]
 
@@ -65,18 +66,34 @@ def merge_episodes():
             split_path = os.path.split(directory)[1]
 
             text = load_text(path)
+            # print(path)
             with open(f"corpus_data/cleaned/{split_path}/{split_path}_complete.txt", 'a') as f:
                 write_data = f.write(text)
             print(f"Content saved to {split_path}/{split_path}_complete.txt")
 
-if __name__ == "__main__":
-    sample = "corpus_data/srt/s1/Letterkenny.S01E01.Aint.No.Reason.to.Get.Excited.1080p.HULU.WEB-DL.AAC2.0.H.264-monkee.srt"
+def merge_seasons():
+    '''Merges cleaned episode files into one season file'''
 
-    # text = load_text(sample)
-    # cleaned = cleanup_text(text)
-    # add = add_start_tokens(cleaned)
-    # # print(cleaned)
-    # save_text(sample, add)
+    for directory, subdirectories, files in os.walk("corpus_data/cleaned"):
+        for file in files:
+            path = os.path.join(directory, file)
+            split_path = os.path.split(directory)[1]
+
+            text = load_text(path)
+            with open(f"corpus_data/cleaned/complete.txt", 'a') as f:
+                write_data = f.write(text)
+            print(f"Content saved to complete.txt")
+
+if __name__ == "__main__":
+    # sample = "corpus_data/srt/s1/Letterkenny.S01E01.Aint.No.Reason.to.Get.Excited.1080p.HULU.WEB-DL.AAC2.0.H.264-monkee.srt"
+
+    sample = "corpus_data/cleaned/complete.txt"
+
+    text = load_text(sample)
+    cleaned = cleanup_text(text)
+    add = add_ss_tokens(cleaned)
+    # print(cleaned)
+    save_text(sample, add)
     # print(add)
 
     # for directory, subdirectories, files in os.walk("corpus_data/srt"):
@@ -84,11 +101,11 @@ if __name__ == "__main__":
     #         path = os.path.join(directory, file)
     #         text = load_text(path)
     #         cleaned = cleanup_text(text)
-    #         add = add_ss_tokens(cleaned)
+    #         # add = add_ss_tokens(cleaned)
     #         # print(cleaned)
-    #         save_text(path, add)
+    #         save_text(path, cleaned)
     
-    merge_episodes()
-
+    # merge_episodes()
+    # merge_seasons()
 
 

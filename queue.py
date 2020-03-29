@@ -19,3 +19,6 @@ class Queue(object):
     
     def dequeue(self):
         return self.queue.pop(0)
+    
+    def reset(self):
+        self.queue = []

@@ -3,34 +3,8 @@ from dictogram import Dictogram
 from queue import Queue
 from utils import load_text
 
-# class MarkovChain(dict):
-#     def __init__(self, corpus, order=2):
-#         super(MarkovChain, self).__init__()
-#         self.order = order
-#         self.queue = Queue(order)
-
-#         if corpus is not None:
-#             # self['<START>'] = Dictogram()
-#             self.make_markov(corpus)
-    
-#     def make_markov(self, corpus):
-#         '''Generates markov chain from corpus'''
-#         markov = {}
-#         q = self.queue
-
-#         for i in range(len(corpus)-1):
-#             first = corpus[i]
-#             second = corpus[i+1]
-
-#             if first not in markov.keys():
-#                 markov[first] = Dictogram()
-
-#             markov.get(first).add_count(second)
-
-#         return markov
-
 def markov_histo(corpus):
-    '''Creates markov chain with histogram'''
+    '''Creates 1st order markov chain with dictogram'''
     markov_dict = {}
 
     # First Order Markov
@@ -82,12 +56,11 @@ def random_walk(markov, sentence_length):
     return " ".join(sentence)
 
 if __name__ == "__main__":
-    file = "corpus_data/cleaned/s1/s1_complete.txt"
+    file = "corpus_data/cleaned/complete.txt"
     corpus = load_text(file)
-    # markov = MarkovChain(corpus, 2)
     markov = markov_histo(corpus)
+    
     for i in range(10):
         walk = random_walk(markov, 10)
         print(walk)
         i +=1
-    # print(markov)
