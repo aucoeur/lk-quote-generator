@@ -1,4 +1,32 @@
 body {
     background-color: rgb(143, 51, 20);
     color: rgb(254, 254, 254);
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    color: greenyellow;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+hr {
+    padding: 0;
+    margin: 0;
+    border: 1px solid white;
+}
+
+#logo {
+    width: 70%;
+    height: auto;
 }
