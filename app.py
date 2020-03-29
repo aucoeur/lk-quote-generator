@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    file = "corpus_data/cleaned/complete.txt"
+    file = "static/corpus_data/cleaned/complete.txt"
     corpus = load_text(file)
     markov = NarkovChain(corpus, 2)
 
