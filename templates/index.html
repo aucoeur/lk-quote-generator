@@ -4,7 +4,8 @@
 
 <div class="container-fluid justify-content-center">
     <div class="d-flex flex-column">
-        <img class="img-fluid align-self-center" id="logo" src="{{ url_for('static', filename='img/letterkenny_logo.png') }}">
+        <img class="img-fluid align-self-center" id="logo"
+            src="{{ url_for('static', filename='img/letterkenny_logo.png') }}">
     </div>
     <div class="d-flex flex-column justify-content-center">
         <div class="row">
@@ -13,16 +14,25 @@
                 <h1 class="text-center">SENTENCE DEGENERATOR</h1>
                 <h4 class="text-center p-4">There are 5000 people in Letterkenny. <br />These are their problems.
                 </h4>
-                <video autoplay loop muted playsinline src="{{gif_link}}"></video>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row justify-content-center">
+            <video autoplay loop muted playsinline src="{{gif_link}}"></video>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-8">
                 <div class="p-3">
-                    <h3>{{ sentence }}</h3>
+                    <h3>"{{ sentence }}"</h3>
                 </div>
             </div>
             <div class="col"></div>
         </div>
-
-        <div class="mx-auto pt-2">
-            <a class="btn btn-warning btn-lg" href="/" role="button">another upcountry degen</a>
+        <div class="row">
+            <div class="mx-auto pt-2 mb-4">
+                <a class="btn btn-warning btn-lg" href="/" role="button">another upcountry degen</a>
+            </div>
         </div>
     </div>
 </div>

@@ -3,6 +3,9 @@ body {
     color: rgb(254, 254, 254);
     height: 100vh;
     font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 a {
@@ -16,8 +19,8 @@ a:hover {
 
 footer {
     width: 100%;
-    position: absolute;
-    bottom: 0;
+    flex: 0 0 50px;/*or just height:50px;*/
+    margin-top: auto;
 }
 
 hr {
