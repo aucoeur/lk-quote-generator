@@ -17,7 +17,7 @@
         </div>
         <form action="/" method=POST>
             <div class="row justify-content-center">
-                <div class="col-7">
+                <div class="col-md-7">
                     <div class="row justify-content-center">
                         <input type="hidden" name="gif_link" value="{{gif_link}}" />
                         <video autoplay loop muted playsinline src="{{gif_link}}"></video>
@@ -31,7 +31,7 @@
                             type="submit" name="favorite" class="btn btn-warning btn-lg">Favorite &#x2606;</button>
                     </div>
                 </div>
-                <div class="col-5">
+                <div class="col-md-5">
                     {% if favorites|length > 0 %}
                     <table class="table table-striped">
                         <thead>FAVORITES</thead>
