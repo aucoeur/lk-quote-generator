@@ -2,7 +2,8 @@ body {
     background-color: rgb(143, 51, 20);
     color: rgb(254, 254, 254);
     height: 100vh;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Source Sans Pro', sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -30,6 +31,11 @@ hr {
 }
 
 #logo {
-    width: 70%;
+    width: 60%;
     height: auto;
+}
+
+.table-striped {
+    color: white!important;
+    font-family: 'Lato', sans-serif;
 }

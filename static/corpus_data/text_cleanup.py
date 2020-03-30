@@ -14,16 +14,17 @@ def cleanup_text(text):
     text = sub('\d+\n\d{2}\:\d{2}\:\d{2},\d{3}\s-->\s\d{2}\:\d{2}\:\d{2},\d{3}\n', '', text)
     # Removes character name and colon
     text = sub('\w+\:', '', text)
-    # Removes paranthetical actions
-    text = sub('\(\w+\s*(\s\w*)*\)', '', text)
+    # Removes paranthetical actions and anything caps-lock
+    text = sub('\(\s*\w+[\.\,\s]*(\w*[\.\,\s]*)*\)', '', text)
+    text = sub('[A-Z]{3,}\.?\s?', '', text)
     # Removes HTML tags
     text = sub('<.*?>','', text)
     # Removes remaining linebreaks
     text = sub('\n+', ' ', text)
-    # Fix double spaces, long dashes and trailing periods
+    # Fix double spaces, long dashes and double+ end punctuation
     text = sub('  ', '. ', text)
     text = sub('‐', '', text)
-    text = sub('\.+', '.', text)
+    text = sub(r'([\.\?\!])([\?\.\!])+', r'\1', text)
     # Removes quotation marks
     text = sub('"', '', text)
     # Removes music symbol
@@ -93,6 +94,6 @@ if __name__ == "__main__":
     #         # print(cleaned)
     #         save_text(path, cleaned)
     
-    merge_episodes()
+    # merge_episodes()
 
 

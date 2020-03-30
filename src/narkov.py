@@ -93,7 +93,7 @@ if __name__ == "__main__":
     # corpus = "The quick brown fox jumped over the lazy dogs.  It's the cat. The early bird gets the worm. But the second mouse gets the cheese. The cat is the one. The quick green mouse gets the lazy dogs. It's the dog.  The quick dumb duck jumped over the piece of bread.  I like bread.  I like cats.  The brown duck gets the bread.".split()
     file = "static/corpus_data/cleaned/complete.txt"
     corpus = load_text(file)
-    markov = NarkovChain(corpus, 2)
+    markov = NarkovChain(corpus, 1)
 
     for i in range(10):
         print(markov.generate_sentence(10))
