@@ -10,7 +10,7 @@ from src.gif import gif_random
 app = Flask(__name__)
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/letterkenny')
-client = MongoClient(host=f'{host}?retryWrites=false')
+client = MongoClient(host=f'{host}?retryWrites=false?authSource=admin')
 db = client.get_default_database()
 
 favorites = db.favorites
