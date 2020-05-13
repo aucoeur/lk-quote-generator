@@ -1,6 +1,5 @@
 import os
 from flask import Flask, request, render_template
-from flask_api import status
 from pymongo import MongoClient
 from src.utils import load_text
 from src.dictogram import Dictogram
@@ -50,4 +49,4 @@ def index():
 
 @app.route('/health')
 def healthcheck():
-    return status.HTTP_200_OK
+    return { 'Status': '200 OK' }
