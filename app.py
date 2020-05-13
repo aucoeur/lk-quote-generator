@@ -49,4 +49,4 @@ def index():
 
 @app.route('/health')
 def healthcheck():
-    return 200
+    return Response(200)
