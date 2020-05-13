@@ -24,21 +24,21 @@ def index():
     sentence = markov.generate_sentence(12)
     gif_link = gif_random()
 
-    # if request.method == 'POST':
-    #     sentence = str(request.form.get('sentence'))
-    #     gif_link = str(request.form.get('gif_link'))
+    if request.method == 'POST':
+        sentence = str(request.form.get('sentence'))
+        gif_link = str(request.form.get('gif_link'))
 
-    #     db.favorites.insert_one({
-    #         "sentence": sentence,
-    #         "gif_link": gif_link
-    #     })
-    #     favorites = list(db.favorites.find())
-    #     return render_template('index.html', 
-    #         sentence = sentence,
-    #         gif_link = gif_link,
-    #         favorites = favorites)
+        db.favorites.insert_one({
+            "sentence": sentence,
+            "gif_link": gif_link
+        })
+        favorites = list(db.favorites.find())
+        return render_template('index.html', 
+            sentence = sentence,
+            gif_link = gif_link,
+            favorites = favorites)
 
-    # favorites = list(db.favorites.find())
+    favorites = list(db.favorites.find())
 
     # add to index.html
         # <button
@@ -61,5 +61,5 @@ def index():
     return render_template('index.html', 
         sentence = sentence,
         gif_link = gif_link,
-        # favorites = favorites
+        favorites = favorites
         )
