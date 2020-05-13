@@ -7,19 +7,16 @@
 FROM python:3.7-slim-buster
 
 # STEP 2: Install required dependencies.
-RUN pip install Flask
+# RUN pip install Flask
+RUN pip install -r requirements.txt
 
 # STEP 3: Copy the source code in the current directory to the container.
 # Store it in a folder named /app.
 ADD . /app
 
-# COPY requirements.txt
-# COPY ./requirements.txt /app/requirements.txt
-
 # STEP 4: Set working directory to /app so we can execute commands in it
 WORKDIR /app
 
-RUN pip install -r requirements.txt
 
 # STEP 5: Declare environment variables
 ENV FLASK_APP=app.py

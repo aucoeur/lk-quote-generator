@@ -40,26 +40,13 @@ def index():
 
     favorites = list(db.favorites.find())
 
-    # add to index.html
-        # <button
-        #     type="submit" name="favorite" class="btn btn-warning btn-lg">Favorite &#x2606;</button>
-        # <div class="col-md-5">
-        #     {% if favorites|length > 0 %}
-        #     <table class="table table-striped">
-        #         <thead>FAVORITES</thead>
-        #         <tbody>
-        #             {% for favorite in favorites %}
-        #             <tr>
-        #                 <td>{{favorite.sentence}}</td>
-        #             </tr>
-        #             {% endfor %}
-        #         </tbody>
-        #     </table>
-        #     {% endif %}
-        # </div>
 
     return render_template('index.html', 
         sentence = sentence,
         gif_link = gif_link,
         favorites = favorites
         )
+
+@app.route('health')
+def healthcheck():
+    return 200
