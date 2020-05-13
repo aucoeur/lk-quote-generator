@@ -47,6 +47,6 @@ def index():
         favorites = favorites
         )
 
-@app.route('health')
+@app.route('/health')
 def healthcheck():
     return 200
