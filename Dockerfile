@@ -16,6 +16,7 @@ ADD . /app
 # STEP 4: Set working directory to /app so we can execute commands in it
 WORKDIR /app
 
+# Install the rest of the requirements
 RUN pip install -r requirements.txt
 
 # STEP 5: Declare environment variables

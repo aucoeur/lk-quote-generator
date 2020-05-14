@@ -50,3 +50,6 @@ def index():
 @app.route('/health')
 def healthcheck():
     return { 'Status': '200 OK' }
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
