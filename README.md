@@ -1,5 +1,5 @@
-# LetterKenny Tweet Generator - but Dockerized!
-Simple implementation of NLP with Markov chains written in Python.  Under development.
+# 'Degen-erated' Quotes from Letterkenny
+Simple implementation of NLP with Markov chains written in Python using scripts from S1-S6 Letterkenny as the corpus data. Dockerized and deployed with CapRover :]
 
 ## Build
 `docker build -t tweetgen_lk-docker .`
