@@ -12,23 +12,29 @@
             <h1 class="text-center">SENTENCE DEGENERATOR</h1>
         </div>
         <div class="row justify-content-center">
-            <h4 class="text-center p-4">There are 5000 people in Letterkenny. <br />These are their problems.
+            <h4 class="text-center p-4">There are 5000 people in Letterkenny.
+                <br />These are their problems.
             </h4>
         </div>
         <form action="/" method=POST>
             <div class="row justify-content-center">
                 <div class="col-md-7">
                     <div class="row justify-content-center">
-                        <input type="hidden" name="gif_link" value="{{gif_link}}" />
-                        <video autoplay loop muted playsinline src="{{gif_link}}"></video>
+                        <input type="hidden" name="gif_link"
+                            value="{{gif_link}}" />
+                        <img src="{{gif_link}}"></img>
                     </div>
                     <div class="p-3">
-                        <input type="hidden" name="sentence" value="{{sentence}}" />
+                        <input type="hidden" name="sentence"
+                            value="{{sentence}}" />
                         <h3>"{{ sentence }}"</h3>
                     </div>
                     <div class="mx-auto pt-2 mb-4 row justify-content-center">
-                        <a class="btn btn-warning btn-lg" href="/" role="button">another degen</a>&nbsp;
-                        <button type="submit" name="favorite" class="btn btn-warning btn-lg">Favorite &#x2606;</button>
+                        <a class="btn btn-warning btn-lg" href="/"
+                            role="button">another degen</a>&nbsp;
+                        <button type="submit" name="favorite"
+                            class="btn btn-warning btn-lg">Favorite
+                            &#x2606;</button>
                     </div>
                 </div>
                 <div class="col-md-5">
@@ -49,5 +55,6 @@
         </form>
     </div>
 </div>
+
 
 {% endblock content %}

@@ -9,8 +9,8 @@ from src.gif import gif_random
 
 app = Flask(__name__)
 
-host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/letterkenny')
-client = MongoClient(host=f'{host}?retryWrites=false&authSource=admin')
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/letterkenny?authSource=admin&retryWrites=false&w=majority')
+client = MongoClient(f'{host}')
 db = client.get_default_database()
 
 favorites = db.favorites
@@ -19,7 +19,7 @@ favorites = db.favorites
 def index():
     file = "static/corpus_data/cleaned/complete.txt"
     corpus = load_text(file)
-    markov = NarkovChain(corpus, 2)
+    markov = NarkovChain(corpus, 3)
 
     sentence = markov.generate_sentence(12)
     gif_link = gif_random()
@@ -33,7 +33,7 @@ def index():
             "gif_link": gif_link
         })
         favorites = list(db.favorites.find())
-        return render_template('index.html', 
+        return render_template('index.html',
             sentence = sentence,
             gif_link = gif_link,
             favorites = favorites)
@@ -41,7 +41,7 @@ def index():
     favorites = list(db.favorites.find())
 
 
-    return render_template('index.html', 
+    return render_template('index.html',
         sentence = sentence,
         gif_link = gif_link,
         favorites = favorites
