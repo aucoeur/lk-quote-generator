@@ -4,7 +4,7 @@
 # TLDR: Alpine is very slow when it comes to running Python!
 
 # STEP 1: Install base image. Optimized for Python.
-FROM python:3.7-slim-buster
+FROM python:3.9.1-slim-buster
 
 # STEP 2: Install required dependencies.
 RUN pip install Flask
