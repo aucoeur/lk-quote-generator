@@ -19,9 +19,9 @@ favorites = db.favorites
 def index():
     file = "static/corpus_data/cleaned/complete.txt"
     corpus = load_text(file)
-    markov = NarkovChain(corpus, 3)
+    markov = NarkovChain(corpus, 2)
 
-    sentence = markov.generate_sentence(12)
+    sentence = markov.generate_sentence(11)
     gif_link = gif_random()
 
     if request.method == 'POST':
