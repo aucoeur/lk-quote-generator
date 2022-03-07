@@ -5,7 +5,7 @@ from src.utils import load_text
 from src.dictogram import Dictogram
 from src.squeue import Queue
 from src.narkov import NarkovChain
-from src.gif import gif_random
+from src.gif import gif_random, gif_random_by_search
 
 app = Flask(__name__)
 
@@ -21,8 +21,9 @@ def index():
     corpus = load_text(file)
     markov = NarkovChain(corpus, 2)
 
-    sentence = markov.generate_sentence(11)
-    gif_link = gif_random()
+    sentence = markov.generate_sentence(12)
+    # gif_link = gif_random()
+    gif_link = gif_random_by_search()
 
     if request.method == 'POST':
         sentence = str(request.form.get('sentence'))

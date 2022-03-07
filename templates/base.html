@@ -3,12 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Lato|Source+Sans+Pro&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link type="text/css" href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Lato|Source+Sans+Pro&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link type="text/css" href="{{ url_for('static', filename='style.css') }}"
+        rel="stylesheet" />
     <title>Letterkenny Tweet Generator</title>
 </head>
 
@@ -19,24 +25,34 @@
         {% endblock content %}
     </div>
 
-    <footer class="footer mt-auto py-1">
+    <footer class="footer mt-auto">
         <div>
             <hr>
-                <span class="text-white px-2 float-right">
-                    <small>
-                        Watch Letterkenny on <a
-                            href="https://www.hulu.com/series/letterkenny-0f756343-1afc-46ba-805a-bb6b1c1e8c65">Hulu</a>
-                        |
-                        Check out this project's <a href="https://github.com/aucoeur/letterkenny_tweetgen">Github</a>
-                    </small>
-                </span>
+            <span class="text-white px-2 float-right">
+                <small>
+                    Watch Letterkenny on <a
+                        href="https://www.hulu.com/series/letterkenny-0f756343-1afc-46ba-805a-bb6b1c1e8c65">Hulu</a>
+                    |
+                    Check out this project's <a
+                        href="https://github.com/aucoeur/letterkenny_tweetgen">Github</a>
+                    |
+                    <a href="https://giphy.com/"> <img
+                            src="{{ url_for('static', filename='img/PoweredBy_200_Horizontal_Light-Backgrounds_With_Logo.gif') }}"
+                            height="30%" width="30%"
+                            class="img-fluid align-self-center"
+                            id="giphy logo" /></a>
 
-                <span class="text-white px-2 float-left">
-                    <small>
-                        All product names, logos, brands, trademarks and registered trademarks are property of their
-                        respective owners.<br /> I do not own any of this content. [Please don't sue me]
-                    </small>
-                </span>
+                </small>
+            </span>
+
+            <span class="text-white px-2 float-left">
+                <small>
+                    All product names, logos, brands, trademarks and registered
+                    trademarks are property of their
+                    respective owners.<br /> I do not own any of this content.
+                    [Please don't sue me]
+                </small>
+            </span>
 
         </div>
     </footer>

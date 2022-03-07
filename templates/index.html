@@ -22,7 +22,8 @@
                     <div class="row justify-content-center">
                         <input type="hidden" name="gif_link"
                             value="{{gif_link}}" />
-                        <img src="{{gif_link}}"></img>
+                        <img src="{{gif_link}}"
+                            alt='gifs powered by giphy'></video>
                     </div>
                     <div class="p-3">
                         <input type="hidden" name="sentence"
@@ -31,8 +32,8 @@
                     </div>
                     <div class="mx-auto pt-2 mb-4 row justify-content-center">
                         <a class="btn btn-warning btn-lg" href="/"
-                            role="button">another degen</a>&nbsp;
-                        <button type="submit" name="favorite"
+                            role="button">another degen</a>&nbsp; <button
+                            type="submit" name="favorite"
                             class="btn btn-warning btn-lg">Favorite
                             &#x2606;</button>
                     </div>
@@ -42,7 +43,7 @@
                     <table class="table table-striped">
                         <thead>FAVORITES</thead>
                         <tbody>
-                            {% for favorite in favorites %}
+                            {% for favorite in favorites[-7:] %}
                             <tr>
                                 <td>{{favorite.sentence}}</td>
                             </tr>
@@ -55,6 +56,5 @@
         </form>
     </div>
 </div>
-
 
 {% endblock content %}
